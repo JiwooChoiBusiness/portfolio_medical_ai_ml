@@ -28,7 +28,7 @@ python 02_modeling.py
 python 03_visualization.py
 ```
 
-> ⚠️ **반드시 01 → 02 → 03 순서를 지킬 것.**  
+> 반드시 01 → 02 → 03 순서를 지킬 것.
 > 01이 생성하는 `brfss_processed.csv`를 02가 읽기 때문에 순서가 바뀌면 leakage 수정이 반영되지 않는다.
 
 ---
@@ -114,13 +114,13 @@ HealthAI/
 ## 파생 피처 설계 원칙
 
 ```python
-# ✅ 안전한 파생 피처 (타겟 정보 미포함)
+# 안전한 파생 피처 (타겟 정보 미포함)
 Comorbidity_Score  = HighChol + HeartDiseaseorAttack + Stroke + CholCheck
 Lifestyle_Risk     = Smoker + HvyAlcoholConsump + (1-PhysActivity) + (1-Fruits) + (1-Veggies)
 BMI_PhysActivity   = BMI × (1 - PhysActivity)
 BMI_Category       = pd.cut(BMI, bins=[0, 18.5, 25, 30, 100])
 
-# ❌ leakage 피처 (절대 사용 금지)
+# leakage 피처 (절대 사용 금지)
 # BMI_HighBP              = BMI × HighBP        → 고혈압 타겟 직접 포함
 # Comorbidity_Score(구버전) = HighBP + ...       → 고혈압 타겟 직접 포함
 # PHQ9_High               = PHQ9_Score >= 10    → 번아웃 타겟과 동일
